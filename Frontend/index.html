@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>LiverCheck – Liver Scarring Risk Estimate</title>
+  <meta name="description" content="A student machine learning tool that estimates the chance of liver scarring from routine blood tests and body measurements."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='24'>LC</text></svg>"/>
+
+  <!-- Google Fonts: Inter & Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-variant": "#e2e2e2",
+            "secondary-fixed": "#e4e2e2",
+            "surface": "#f9f9f9",
+            "surface-container-high": "#e8e8e8",
+            "on-primary-container": "#858383",
+            "outline": "#747878",
+            "primary-fixed-dim": "#c9c6c5",
+            "error": "#ba1a1a",
+            "surface-tint": "#5f5e5e",
+            "on-background": "#1a1c1c",
+            "on-primary-fixed": "#1c1b1b",
+            "on-secondary-fixed-variant": "#464747",
+            "primary-container": "#1c1b1b",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-dim": "#dadada",
+            "on-primary-fixed-variant": "#474646",
+            "on-tertiary-container": "#868381",
+            "inverse-primary": "#c9c6c5",
+            "surface-container-highest": "#e2e2e2",
+            "tertiary-container": "#1d1b1a",
+            "on-tertiary-fixed": "#1d1b1a",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#cac6c3",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#1a1c1c",
+            "on-surface-variant": "#444748",
+            "secondary-container": "#e1dfdf",
+            "primary": "#000000",
+            "background": "#f9f9f9",
+            "tertiary": "#000000",
+            "surface-container": "#eeeeee",
+            "primary-fixed": "#e5e2e1",
+            "surface-bright": "#f9f9f9",
+            "outline-variant": "#c4c7c7",
+            "inverse-surface": "#2f3131",
+            "surface-container-low": "#f4f3f3",
+            "on-secondary-fixed": "#1b1c1c",
+            "on-secondary": "#ffffff",
+            "inverse-on-surface": "#f1f1f1",
+            "on-secondary-container": "#626262",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#c7c6c6",
+            "secondary": "#5e5e5e",
+            "on-tertiary-fixed-variant": "#484645",
+            "tertiary-fixed": "#e6e1df"
+          },
+          borderRadius: {
+            none: "0",
+            sm: "0.5rem",
+            DEFAULT: "0.875rem",
+            md: "1rem",
+            lg: "1.25rem",
+            xl: "1.5rem",
+            "2xl": "1.75rem",
+            "3xl": "2.25rem",
+            full: "9999px"
+          },
+          spacing: {
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "1rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "2rem"
+          },
+          fontFamily: {
+            "body-lg": ["Inter", "sans-serif"],
+            "data-metric": ["Inter", "sans-serif"],
+            "headline-md": ["Inter", "sans-serif"],
+            "headline-xl": ["Inter", "sans-serif"],
+            "headline-xl-mobile": ["Inter", "sans-serif"],
+            "headline-lg": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "headline-lg-mobile": ["Inter", "sans-serif"],
+            "headline-sm": ["Inter", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"],
+            "caption": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "data-metric": ["48px", { lineHeight: "52px", letterSpacing: "-0.03em", fontWeight: "700" }],
+            "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+            "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "headline-xl-mobile": ["28px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }],
+            "headline-lg": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "600" }],
+            "headline-lg-mobile": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-sm": ["16px", { lineHeight: "24px", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "600" }],
+            "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+            "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }],
+            "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+
+    /* Refined Clinical Liver Visualization & Ultrasound Elastography Animation */
+    @keyframes drawContour {
+      0% {
+        stroke-dashoffset: 460;
+        opacity: 0.2;
+      }
+      60% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+
+    @keyframes drawInternal {
+      0% {
+        stroke-dashoffset: 120;
+        opacity: 0;
+      }
+      40% {
+        stroke-dashoffset: 120;
+        opacity: 0;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 0.55;
+      }
+    }
+
+    @keyframes liverGentleBreathe {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.035);
+      }
+    }
+
+    @keyframes liverLineDraw {
+      0% {
+        stroke-dashoffset: 460;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes liverNodePulse {
+      0% {
+        r: 3;
+        opacity: 0.8;
+        stroke-width: 1.2;
+      }
+      60% {
+        r: 8;
+        opacity: 0;
+        stroke-width: 0.6;
+      }
+      100% {
+        r: 3;
+        opacity: 0;
+        stroke-width: 0;
+      }
+    }
+
+    .liver-anim-box {
+      animation: liverGentleBreathe 4s ease-in-out infinite;
+      transform-origin: center center;
+    }
+
+    .liver-draw-path {
+      stroke-dasharray: 460;
+      stroke-dashoffset: 0;
+      animation: liverLineDraw 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .liver-sensor-pulse {
+      animation: liverNodePulse 2.6s ease-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .liver-anim-box,
+      .liver-draw-path,
+      .liver-sensor-pulse {
+        animation: none !important;
+        stroke-dashoffset: 0 !important;
+        transform: none !important;
+      }
+    }
+
+    @media print {
+      header, footer, .no-print { display: none !important; }
+      main { padding-top: 0 !important; }
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- ======================== FLOATING CAPSULE HEADER / NAVIGATION ======================== -->
+  <header class="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
+    <div class="pointer-events-auto w-full max-w-4xl bg-[#0c0c0e]/95 backdrop-blur-md border border-white/10 rounded-full py-2 px-3 sm:px-5 shadow-2xl shadow-black/30 flex items-center justify-between gap-2 sm:gap-4 transition-all">
+      <!-- Logo -->
+      <a href="#calculator" onclick="showSection('calculator'); return false;" class="flex items-center gap-2.5 text-white cursor-pointer select-none pl-1" aria-label="LiverCheck Home">
+        <svg class="w-5 h-5 text-white shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="2" x2="12" y2="22"></line>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+          <line x1="4.93" y1="19.07" x2="19.07" y2="4.93"></line>
+        </svg>
+        <span class="font-bold text-white text-[15px] tracking-tight">LiverCheck</span>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="flex items-center gap-1 sm:gap-2">
+        <button id="nav-calculator" onclick="showSection('calculator')" class="nav-pill-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all bg-white/15 text-white shadow-xs cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] sm:text-[18px]">home</span>
+          <span>Calculator</span>
+        </button>
+        <button id="nav-results" onclick="showSection('results')" class="nav-pill-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all text-neutral-400 hover:text-white hover:bg-white/5 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] sm:text-[18px]">grid_view</span>
+          <span>Results</span>
+        </button>
+        <button id="nav-how-it-works" onclick="showSection('how-it-works')" class="nav-pill-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all text-neutral-400 hover:text-white hover:bg-white/5 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] sm:text-[18px]">group</span>
+          <span>How it works</span>
+        </button>
+      </nav>
+
+      <!-- Right: Action & Profile Badge -->
+      <div class="flex items-center gap-2 pr-1">
+        <button onclick="openLabModal()" class="w-8 h-8 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Lab report guide" aria-label="Lab report guide" type="button">
+          <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+        </button>
+        <div class="w-8 h-8 rounded-full border border-white/20 bg-white/10 text-white flex items-center justify-center select-none shadow-sm cursor-default" title="User Profile">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== MAIN CONTAINER ======================== -->
+  <main class="w-full pt-24 sm:pt-28 bg-surface-container-lowest flex-1">
+    <div class="max-w-6xl mx-auto px-margin py-space-xl">
+
+      <!-- ================================================================= -->
+      <!-- SECTION 1: CALCULATOR                                            -->
+      <!-- ================================================================= -->
+      <div id="section-calculator" class="flex flex-col w-full">
+        <!-- Hero Header -->
+        <div class="w-full pb-space-lg mb-space-lg border-b border-outline-variant/40">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+            <!-- Left: Title and Description -->
+            <div class="lg:col-span-7 flex flex-col gap-space-xs">
+              <div class="inline-flex items-center gap-space-xs px-3 py-1 bg-surface-container rounded-full text-on-surface w-fit mb-1">
+                <span class="material-symbols-outlined text-[14px]">school</span>
+                <span class="font-label-sm text-label-sm uppercase tracking-wider">Student Machine Learning Project · NHANES Data</span>
+              </div>
+              <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Liver Scarring Risk Check</h1>
+              <p class="font-body-lg text-body-lg text-secondary">
+                Enter common blood test numbers and body measurements to estimate the chance of liver scarring (fibrosis). It takes about two minutes. No data is stored.
+              </p>
+            </div>
+
+            <!-- Right: Liver Line Art Animation (No Box, Just Animation) -->
+            <div class="lg:col-span-5 flex items-center justify-start lg:justify-end select-none py-2">
+              <svg class="w-48 sm:w-56 h-28 sm:h-32 text-neutral-900 liver-anim-box overflow-visible" viewBox="0 0 160 110" aria-label="Liver anatomical line art">
+                <!-- Main Anatomical Liver Contour (Black Outline) -->
+                <path class="liver-draw-path" d="M 20 56 C 28 42, 48 30, 72 26 C 90 22, 120 18, 138 28 C 148 36, 150 56, 144 70 C 140 82, 124 92, 102 92 C 94 92, 88 88, 82 88 C 65 88, 42 78, 20 56 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <!-- Interlobar Fissure -->
+                <path d="M 72 26 C 75 44, 78 64, 82 88" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.4"></path>
+                <!-- Hepatic Vessel Architecture -->
+                <path d="M 82 54 C 96 44, 112 42, 124 46" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.3"></path>
+                <path d="M 84 58 C 98 64, 114 68, 128 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.3"></path>
+                <path d="M 72 50 C 58 48, 44 52, 34 56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.25"></path>
+                <!-- Minimal Focal Sensor -->
+                <g transform="translate(106, 54)">
+                  <circle class="liver-sensor-pulse" cx="0" cy="0" r="3" fill="none" stroke="currentColor"></circle>
+                  <circle cx="0" cy="0" r="2.2" fill="currentColor"></circle>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form and Sidebar Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+          <!-- LEFT COLUMN: Input Form -->
+          <div class="lg:col-span-7 flex flex-col gap-space-lg">
+            
+            <!-- CARD 1: Demographics -->
+            <section class="bg-surface-container-lowest p-space-lg rounded-3xl border border-outline-variant/60 shadow-xs flex flex-col gap-space-md">
+              <div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/30">
+                <div class="flex items-center gap-space-xs">
+                  <span class="w-6 h-6 rounded-full bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center font-bold">1</span>
+                  <h2 class="font-headline-sm text-headline-sm text-on-surface">About you</h2>
+                </div>
+                <span class="font-caption text-caption text-secondary">Basic information</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md items-end">
+                <!-- Age -->
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="age">Age</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 18 to 85 yrs</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-16" id="age" max="85" min="18" placeholder="18 - 85" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none uppercase">Years</span>
+                  </div>
+                  <p class="font-caption text-caption text-secondary">Liver risk formulas need your current age.</p>
+                </div>
+                <!-- Biological Sex -->
+                <div class="flex flex-col gap-space-xs">
+                  <label class="font-label-md text-label-md text-on-surface font-semibold">Biological sex</label>
+                  <input id="sex" type="hidden" value=""/>
+                  <div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl border border-outline-variant/50 h-[46px] items-center">
+                    <button class="h-full rounded-lg font-label-md text-label-md transition-all flex items-center justify-center bg-transparent text-secondary hover:text-primary cursor-pointer" id="sex-male-btn" onclick="setSex('male')" type="button">
+                      Male
+                    </button>
+                    <button class="h-full rounded-lg font-label-md text-label-md transition-all flex items-center justify-center bg-transparent text-secondary hover:text-primary cursor-pointer" id="sex-female-btn" onclick="setSex('female')" type="button">
+                      Female
+                    </button>
+                  </div>
+                  <p class="font-caption text-caption text-secondary">Used to set baseline enzyme ranges.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- CARD 2: Body Measurements -->
+            <section class="bg-surface-container-lowest p-space-lg rounded-3xl border border-outline-variant/60 shadow-xs flex flex-col gap-space-md">
+              <div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/30">
+                <div class="flex items-center gap-space-xs">
+                  <span class="w-6 h-6 rounded-full bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center font-bold">2</span>
+                  <h2 class="font-headline-sm text-headline-sm text-on-surface">Body measurements</h2>
+                </div>
+                <span class="font-caption text-caption text-secondary">Height, weight, and waist</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+                <!-- Height -->
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="height">Height</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">100 - 240</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-12" id="height" max="240" min="100" placeholder="cm" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">cm</span>
+                  </div>
+                </div>
+                <!-- Weight -->
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="weight">Weight</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">30 - 300</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-12" id="weight" max="300" min="30" placeholder="kg" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">kg</span>
+                  </div>
+                </div>
+                <!-- Waist -->
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="waist">Waist</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">40 - 200</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-12" id="waist" max="200" min="40" placeholder="cm" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">cm</span>
+                  </div>
+                </div>
+              </div>
+              <p class="font-caption text-caption text-secondary -mt-1">
+                Measure around your waist level with your belly button while breathing out gently.
+              </p>
+              <!-- Live BMI Box -->
+              <div class="bg-surface-container-low p-space-sm rounded-2xl border border-outline-variant/60 flex items-center justify-between" id="bmi_box">
+                <div class="flex items-center gap-space-sm">
+                  <span class="material-symbols-outlined text-[20px] text-on-surface">straighten</span>
+                  <div>
+                    <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Body Mass Index (BMI)</span>
+                    <div class="font-headline-sm text-headline-sm text-on-surface flex items-baseline gap-2">
+                      <span>BMI:</span>
+                      <span class="font-bold" id="bmi">--</span>
+                      <span class="font-label-md text-label-md text-secondary font-normal" id="bmi-classification">(Enter height and weight)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="hidden sm:flex flex-col items-end">
+                  <span class="font-caption text-caption text-secondary">Standard range</span>
+                  <span class="font-label-sm text-label-sm font-semibold">18.5 to 24.9</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- CARD 3: Blood Test Results -->
+            <section class="bg-surface-container-lowest p-space-lg rounded-3xl border border-outline-variant/60 shadow-xs flex flex-col gap-space-md">
+              <div class="flex flex-col gap-1 pb-space-xs border-b border-outline-variant/30">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="w-6 h-6 rounded-full bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center font-bold">3</span>
+                    <h2 class="font-headline-sm text-headline-sm text-on-surface">Blood test results</h2>
+                  </div>
+                  <button class="font-label-md text-label-md text-primary underline underline-offset-4 hover:text-secondary flex items-center gap-1 cursor-pointer" onclick="openLabModal()" type="button">
+                    <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+                    Where to find these numbers
+                  </button>
+                </div>
+                <p class="font-body-sm text-body-sm text-secondary">
+                  Found on a standard metabolic panel or liver function test.
+                </p>
+              </div>
+
+              <!-- High ALT Warning Banner -->
+              <div class="hidden bg-surface-container p-3 rounded-xl border border-on-surface flex items-start gap-2.5" id="alt-warning-banner">
+                <span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">warning</span>
+                <div class="flex-1">
+                  <p class="font-label-md text-label-md text-on-surface font-semibold" id="alt-warning-text">
+                    This number looks unusually high. Please double check the unit on your lab report.
+                  </p>
+                </div>
+                <button class="text-secondary hover:text-primary cursor-pointer" onclick="document.getElementById('alt-warning-banner').classList.add('hidden')" type="button">
+                  <span class="material-symbols-outlined text-[16px]">close</span>
+                </button>
+              </div>
+
+              <!-- 2x2 Grid for Core Enzymes -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+                <!-- ALT -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="alt">ALT</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 1 - 1000 U/L</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-14" id="alt" max="1000" min="1" placeholder="1 - 1000" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">U/L</span>
+                  </div>
+                  <p class="font-caption text-caption text-secondary leading-snug">
+                    ALT: liver enzyme. Standard: 7 to 56 U/L.
+                  </p>
+                </div>
+                <!-- AST -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="ast">AST</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 1 - 1000 U/L</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-14" id="ast" max="1000" min="1" placeholder="1 - 1000" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">U/L</span>
+                  </div>
+                  <p class="font-caption text-caption text-secondary leading-snug">
+                    AST: muscle & liver enzyme. Standard: 10 to 40 U/L.
+                  </p>
+                </div>
+                <!-- GGT -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="ggt">GGT</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 1 - 2000 U/L</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-14" id="ggt" max="2000" min="1" placeholder="1 - 2000" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">U/L</span>
+                  </div>
+                  <p class="font-caption text-caption text-secondary leading-snug">
+                    GGT: bile duct and liver stress. Standard: 9 to 48 U/L.
+                  </p>
+                </div>
+                <!-- Platelets -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex justify-between items-center">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="platelets">Platelet count</label>
+                    <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 2 - 1500</span>
+                  </div>
+                  <div class="relative flex items-center">
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-24" id="platelets" max="1500" min="2" placeholder="2 - 1500" type="number" value=""/>
+                    <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">x1000/µL</span>
+                  </div>
+                  <p class="font-caption text-caption text-secondary leading-snug">
+                    Platelets: blood clotting cells. Standard: 150 to 400.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Optional Fasting Panel -->
+              <div class="border border-outline-variant/50 rounded-xl overflow-hidden">
+                <button class="w-full px-4 py-3 bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between text-left cursor-pointer" onclick="toggleAccordion('fasting-panel', 'fasting-icon')" type="button">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-primary" id="fasting-icon">add</span>
+                    <span class="font-label-md text-label-md text-on-surface">Optional fasting tests (Triglycerides and Glucose)</span>
+                  </div>
+                  <span class="font-caption text-caption text-secondary">Adds extra precision if available</span>
+                </button>
+                <div class="hidden p-space-md bg-surface-container-lowest border-t border-outline-variant/40 flex-col gap-space-md" id="fasting-panel">
+                  <p class="font-body-sm text-body-sm text-secondary">
+                    If your lab report included a lipid panel or fasting glucose, you can add them below.
+                  </p>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+                    <div class="flex flex-col gap-1">
+                      <div class="flex justify-between items-center">
+                        <label class="font-label-md text-label-md text-on-surface font-semibold" for="triglycerides">Triglycerides</label>
+                        <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 0.1 - 30.0</span>
+                      </div>
+                      <div class="relative flex items-center">
+                        <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-18" id="triglycerides" max="30" min="0.1" placeholder="0.1 - 30.0" step="0.1" type="number" value=""/>
+                        <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">mmol/L</span>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <div class="flex justify-between items-center">
+                        <label class="font-label-md text-label-md text-on-surface font-semibold" for="glucose">Fasting glucose</label>
+                        <span class="font-caption text-caption text-secondary font-mono text-[11px]">Gap: 40 - 600</span>
+                      </div>
+                      <div class="relative flex items-center">
+                        <input class="w-full bg-surface-container-lowest border border-outline-variant/80 rounded-xl px-3.5 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors pr-18" id="glucose" max="600" min="40" placeholder="40 - 600" step="1" type="number" value=""/>
+                        <span class="absolute right-3.5 font-caption text-caption text-secondary pointer-events-none">mg/dL</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Inline Error Banner -->
+            <div class="hidden bg-surface-container p-3 rounded-xl border border-on-surface flex items-start gap-2.5" id="calc-error-banner">
+              <span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">info</span>
+              <div class="flex-1">
+                <p class="font-label-md text-label-md text-on-surface font-semibold" id="calc-error-text">Please fill in all required measurements.</p>
+              </div>
+              <button class="text-secondary hover:text-primary cursor-pointer" onclick="document.getElementById('calc-error-banner').classList.add('hidden')" type="button">
+                <span class="material-symbols-outlined text-[16px]">close</span>
+              </button>
+            </div>
+
+            <!-- Action Panel -->
+            <div class="flex flex-col gap-space-sm">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md">
+                <button id="calc-submit-btn" class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-3.5 px-6 rounded-xl hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 font-semibold shadow-xs cursor-pointer" onclick="calculateRiskScore()" type="button">
+                  <span id="btn-text">Calculate risk estimate</span>
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
+                <button class="bg-surface-container-lowest border border-primary text-primary font-label-md text-label-md py-3.5 px-6 rounded-xl hover:bg-surface-container transition-colors text-center font-medium cursor-pointer" onclick="resetDefaults()" type="button">
+                  Start over
+                </button>
+              </div>
+              <div class="flex items-center gap-2 text-secondary pt-1">
+                <span class="material-symbols-outlined text-[16px] text-on-surface">lock</span>
+                <p class="font-caption text-caption text-on-surface-variant">
+                  Zero data storage. Your numbers stay in your browser session only.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Side Guidance -->
+          <div class="lg:col-span-5 flex flex-col gap-space-md lg:sticky lg:top-28">
+            <div class="bg-surface-container-lowest p-space-md sm:p-space-lg rounded-3xl border border-outline-variant/60 shadow-xs flex flex-col gap-space-sm">
+              <div class="flex items-center gap-2 pb-space-xs border-b border-outline-variant/30">
+                <span class="material-symbols-outlined text-[18px] text-primary">help_outline</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">How to use this tool</h3>
+              </div>
+              <ul class="flex flex-col gap-space-sm font-body-sm text-body-sm text-secondary">
+                <li class="flex items-start gap-2.5">
+                  <span class="w-5 h-5 rounded-full border border-primary text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">1</span>
+                  <span>Find your blood test from the past 12 months.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="w-5 h-5 rounded-full border border-primary text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">2</span>
+                  <span>Check units: U/L for enzymes, x1000/µL for platelets.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="w-5 h-5 rounded-full border border-primary text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">3</span>
+                  <span>Bring the final result to discuss with your doctor.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-surface-container-lowest p-space-md sm:p-space-lg rounded-3xl border border-outline-variant/60 shadow-xs flex flex-col gap-space-sm">
+              <div class="flex items-center gap-2 pb-space-xs border-b border-outline-variant/30">
+                <span class="material-symbols-outlined text-[18px] text-primary">health_and_safety</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Why screen for liver scarring</h3>
+              </div>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                Liver scarring develops slowly and rarely causes symptoms in early stages.
+              </p>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                Routine blood tests combined with waist size can flag early changes years before serious trouble appears.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 2: RESULTS                                               -->
+      <!-- ================================================================= -->
+      <div id="section-results" class="hidden flex flex-col w-full">
+        <!-- Empty State (Shown before calculation) -->
+        <div id="results-empty-state" class="max-w-2xl mx-auto w-full bg-surface-container-lowest p-space-2xl rounded-2xl sm:rounded-3xl shadow-xs border border-outline-variant/60 flex flex-col items-center justify-center text-center gap-space-md py-16">
+          <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-secondary mb-2">
+            <span class="material-symbols-outlined text-[30px]">pending_actions</span>
+          </div>
+          <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">No calculation yet</h2>
+          <p class="font-body-md text-body-md text-secondary max-w-md">
+            Enter your test numbers in the Calculator and press calculate to view your estimate here.
+          </p>
+          <button onclick="showSection('calculator')" class="mt-2 inline-flex items-center gap-space-xs px-6 py-3 bg-primary text-on-primary hover:bg-neutral-800 transition-colors font-label-md text-label-md rounded-xl font-semibold cursor-pointer">
+            <span>Go to Calculator</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <!-- Populated Results Area (Only shown after real API response) -->
+        <div id="results-content-area" class="hidden max-w-4xl mx-auto w-full flex flex-col gap-space-lg">
+          <!-- Top Meta Action Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+            <div class="flex items-center gap-space-sm">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Assessment Reference</span>
+              <span class="font-mono font-caption text-caption bg-surface-container px-3 py-1 rounded-full text-on-surface" id="assessment-id">--</span>
+            </div>
+            <div class="flex items-center gap-space-md text-secondary font-caption text-caption">
+              <span id="timestamp-slot">--</span>
+            </div>
+          </div>
+
+          <!-- 1. TOP SUMMARY CARD -->
+          <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-2xl sm:rounded-3xl shadow-xs border border-outline-variant/60 flex flex-col gap-space-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+              <span class="font-label-md text-label-md uppercase tracking-wider text-primary">Screening Result</span>
+              <span class="font-caption text-caption text-secondary" id="model-badge-top">--</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-space-xl items-center py-space-sm">
+              <!-- Animated SVG Liver Fill (Location 3: Results fill level) -->
+              <div class="md:col-span-5 flex flex-col items-center justify-center relative">
+                <div class="w-36 h-28 relative flex items-center justify-center">
+                  <svg class="w-full h-full" viewBox="0 0 160 110" aria-label="Liver risk fill indicator">
+                    <defs>
+                      <clipPath id="liver-clip-shape">
+                        <path d="M 20 56 C 28 42, 48 30, 72 26 C 90 22, 120 18, 138 28 C 148 36, 150 56, 144 70 C 140 82, 124 92, 102 92 C 94 92, 88 88, 82 88 C 65 88, 42 78, 20 56 Z" />
+                      </clipPath>
+                    </defs>
+                    <!-- Monochrome fill level that rises from bottom to top -->
+                    <g id="gauge-fill-arc" data-model="Hepatic Vector Model" clip-path="url(#liver-clip-shape)">
+                      <rect id="liver-fill-level" x="0" y="92" width="160" height="0" fill="#000000" class="transition-all duration-1000 ease-out"></rect>
+                    </g>
+                    <!-- Anatomical line art outline -->
+                    <path d="M 20 56 C 28 42, 48 30, 72 26 C 90 22, 120 18, 138 28 C 148 36, 150 56, 144 70 C 140 82, 124 92, 102 92 C 94 92, 88 88, 82 88 C 65 88, 42 78, 20 56 Z" fill="none" stroke="#000000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M 72 26 C 75 44, 78 64, 82 88" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.45"></path>
+                  </svg>
+                </div>
+                <div class="mt-2 flex flex-col items-center">
+                  <span class="font-data-metric text-data-metric text-primary tracking-tighter leading-none" id="metric-counter">--%</span>
+                  <span class="font-caption text-caption text-secondary mt-1">Estimated risk</span>
+                </div>
+              </div>
+
+              <!-- Metric Interpretation -->
+              <div class="md:col-span-7 flex flex-col justify-center gap-space-sm">
+                <div class="flex items-center gap-space-sm flex-wrap">
+                  <span id="risk-level-badge" class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container text-on-surface font-label-md text-label-md rounded-full font-bold">
+                    <span id="risk-level-text">--</span>
+                  </span>
+                  <span id="risk-stage-text" class="font-label-sm text-label-sm text-secondary uppercase tracking-wider bg-surface-container-low px-3 py-1 rounded-full">--</span>
+                </div>
+                <h2 id="risk-headline" class="font-headline-md text-headline-md text-primary tracking-tight">--</h2>
+                <p id="risk-narrative" class="font-body-md text-body-md text-on-surface leading-relaxed">--</p>
+                <div class="pt-space-xs text-secondary font-caption text-caption">
+                  <span id="urgency-text">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. CARD: HOW THIS COMPARES -->
+          <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-2xl sm:rounded-3xl shadow-xs border border-outline-variant/60 flex flex-col gap-space-md">
+            <div class="flex flex-col gap-space-xs">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Comparison to standard FIB-4</span>
+              <h2 class="font-headline-md text-headline-md text-primary tracking-tight">How this model compares to the traditional score</h2>
+              <p class="font-body-sm text-body-sm text-secondary">FIB-4 is a common formula doctors use. LiverCheck adds waist size and BMI to help detect early scarring.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+              <!-- Block 1: LiverCheck -->
+              <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex flex-col justify-between gap-space-md">
+                <div class="flex flex-col gap-space-xs">
+                  <span class="font-label-md text-label-md font-semibold text-primary">LiverCheck Model</span>
+                  <p class="font-caption text-caption text-secondary">Combines blood tests with waist circumference and BMI.</p>
+                </div>
+                <div class="flex items-baseline gap-space-xs pt-space-xs">
+                  <span class="font-data-metric text-data-metric text-primary tracking-tight" id="compare-ml-metric">--%</span>
+                  <span class="font-label-md text-label-md text-secondary">calculated risk</span>
+                </div>
+                <div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-primary h-full transition-all duration-700" id="compare-ml-bar" style="width: 0%"></div>
+                </div>
+              </div>
+              <!-- Block 2: Standard FIB-4 -->
+              <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex flex-col justify-between gap-space-md">
+                <div class="flex flex-col gap-space-xs">
+                  <span class="font-label-md text-label-md font-semibold text-primary">Standard FIB-4 Score</span>
+                  <p class="font-caption text-caption text-secondary">Calculated from Age, AST, ALT, and Platelets only.</p>
+                </div>
+                <div class="flex items-baseline gap-space-xs pt-space-xs">
+                  <span class="font-data-metric text-data-metric text-primary tracking-tight" id="compare-fib4-score">--</span>
+                  <span class="font-label-md text-label-md text-secondary" id="compare-fib4-cat">--</span>
+                </div>
+                <div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-secondary h-full transition-all duration-700" id="compare-fib4-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. CARD: WHAT INFLUENCED YOUR RESULT -->
+          <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-2xl sm:rounded-3xl shadow-xs border border-outline-variant/60 flex flex-col gap-space-lg">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+              <div>
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Factor breakdown</span>
+                <h2 class="font-headline-md text-headline-md text-primary tracking-tight">What influenced your result</h2>
+                <p class="font-body-sm text-body-sm text-secondary mt-1">Relative contribution of your lab and body measurements to this calculation.</p>
+              </div>
+            </div>
+            <!-- Dynamic Factor Container (starts empty, filled only from real response) -->
+            <div class="flex flex-col gap-space-lg" id="factors-container"></div>
+          </div>
+
+          <!-- 4. CARD: NEXT STEPS -->
+          <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-2xl sm:rounded-3xl shadow-xs border border-outline-variant/60 flex flex-col gap-space-lg">
+            <div>
+              <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Sensible next steps</span>
+              <h2 class="font-headline-md text-headline-md text-primary tracking-tight">General health guidance</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+              <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex gap-space-md items-start">
+                <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">stethoscope</span>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-label-md text-label-md font-semibold text-primary">Talk with your primary doctor</h3>
+                  <p class="font-body-sm text-body-sm text-secondary">Show your doctor this summary. They can order follow-up blood tests or an ultrasound if appropriate.</p>
+                </div>
+              </div>
+              <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex gap-space-md items-start">
+                <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">restaurant</span>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-label-md text-label-md font-semibold text-primary">Focus on wholesome foods</h3>
+                  <p class="font-body-sm text-body-sm text-secondary">Eat more vegetables, beans, nuts, whole grains, and lean proteins. Cut back on ultra-processed snacks and added sugars.</p>
+                </div>
+              </div>
+              <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex gap-space-md items-start">
+                <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">no_drinks</span>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-label-md text-label-md font-semibold text-primary">Limit alcohol and sugary drinks</h3>
+                  <p class="font-body-sm text-body-sm text-secondary">Alcohol and high-fructose corn syrup put extra stress on liver cells.</p>
+                </div>
+              </div>
+              <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex gap-space-md items-start">
+                <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">directions_walk</span>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-label-md text-label-md font-semibold text-primary">Stay physically active</h3>
+                  <p class="font-body-sm text-body-sm text-secondary">Aim for about 30 minutes of brisk walking or other moderate exercise most days of the week.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Caution Notice -->
+            <div class="p-space-md bg-surface-container rounded-2xl border border-outline-variant/40 flex items-start gap-space-md">
+              <span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">warning</span>
+              <div class="flex flex-col gap-1">
+                <span class="font-label-md text-label-md font-semibold text-primary">When to see a doctor right away</span>
+                <p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                  Seek medical care promptly if you notice yellow skin or eyes (jaundice), swelling in your legs or belly, dark urine, or unusual mental confusion.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons & Disclaimer -->
+          <div class="flex flex-col gap-space-lg pt-space-xs no-print">
+            <div class="flex flex-col sm:flex-row items-center gap-space-sm justify-between">
+              <button class="w-full sm:w-auto px-6 py-3.5 bg-primary text-on-primary hover:bg-neutral-800 transition-colors font-label-md text-label-md rounded-xl flex items-center justify-center gap-space-xs cursor-pointer font-semibold shadow-xs" onclick="window.print()">
+                <span class="material-symbols-outlined text-[18px]">print</span>
+                Print or save PDF
+              </button>
+              <div class="flex w-full sm:w-auto items-center gap-space-sm">
+                <button class="flex-1 sm:flex-none px-5 py-3.5 bg-surface-container-high text-primary hover:bg-surface-variant transition-colors font-label-md text-label-md rounded-xl flex items-center justify-center gap-space-xs cursor-pointer font-medium" onclick="showSection('calculator')">
+                  <span class="material-symbols-outlined text-[18px]">edit</span>
+                  Edit my numbers
+                </button>
+                <button class="flex-1 sm:flex-none px-5 py-3.5 bg-surface-container-low text-secondary hover:text-primary hover:bg-surface-container transition-colors font-label-md text-label-md rounded-xl flex items-center justify-center gap-space-xs cursor-pointer font-medium" onclick="handleResetCalculation()">
+                  <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                  Start over
+                </button>
+              </div>
+            </div>
+            <div class="bg-surface-container-low p-space-md rounded-2xl border border-outline-variant/30 flex items-start gap-space-md">
+              <span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">policy</span>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                Educational use only. This tool is not a medical device. It cannot diagnose or rule out liver disease. Always consult a qualified healthcare professional.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 3: HOW IT WORKS                                          -->
+      <!-- ================================================================= -->
+      <div id="section-how-it-works" class="hidden flex flex-col w-full">
+        <!-- Header with Static SVG Liver Line Art (Location 4: How It Works) -->
+        <section class="mb-space-2xl pb-space-lg border-b border-outline-variant/60">
+          <div class="flex items-center gap-space-md mb-space-xs">
+            <div class="w-12 h-10 shrink-0">
+              <svg class="w-full h-full text-primary" viewBox="0 0 160 110" aria-hidden="true">
+                <path d="M 20 56 C 28 42, 48 30, 72 26 C 90 22, 120 18, 138 28 C 148 36, 150 56, 144 70 C 140 82, 124 92, 102 92 C 94 92, 88 88, 82 88 C 65 88, 42 78, 20 56 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M 72 26 C 75 44, 78 64, 82 88" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.45"></path>
+              </svg>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">How LiverCheck works</h1>
+          </div>
+          <p class="font-body-lg text-body-lg text-secondary max-w-3xl">
+            A student machine learning project using public survey data to explore non-invasive liver screening.
+          </p>
+        </section>
+
+        <!-- Section 1 -->
+        <section class="mb-space-2xl">
+          <div class="mb-space-md">
+            <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">1. What it measures</h2>
+            <p class="font-body-sm text-body-sm text-secondary">The model looks at three main aspects of your health:</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-lg">
+            <div class="bg-surface-container-low p-space-lg rounded-2xl border border-outline-variant/30 flex flex-col justify-between">
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-primary mb-space-xs">Liver cell stress</h3>
+                <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                  ALT, AST, and GGT. These enzymes leak into the blood when liver cells or bile ducts are under strain.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/40 font-label-sm text-label-sm text-secondary mt-space-md">
+                ALT · AST · GGT
+              </div>
+            </div>
+            <div class="bg-surface-container-low p-space-lg rounded-2xl border border-outline-variant/30 flex flex-col justify-between">
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-primary mb-space-xs">Platelets and age</h3>
+                <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                  Platelets drop when a stiff liver causes blood to back up into the spleen.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/40 font-label-sm text-label-sm text-secondary mt-space-md">
+                Platelets · Age
+              </div>
+            </div>
+            <div class="bg-surface-container-low p-space-lg rounded-2xl border border-outline-variant/30 flex flex-col justify-between">
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-primary mb-space-xs">Metabolic factors</h3>
+                <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                  BMI and waist size. Extra fat around the belly is closely linked to fat deposits in the liver.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/40 font-label-sm text-label-sm text-secondary mt-space-md">
+                BMI · Waist
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="mb-space-2xl">
+          <div class="mb-space-md">
+            <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">2. How the model was trained</h2>
+          </div>
+          <div class="p-space-xl bg-surface-container-low rounded-2xl sm:rounded-3xl border border-outline-variant/30 flex flex-col gap-space-md">
+            <p class="font-body-lg text-body-lg text-primary leading-relaxed">
+              We used data from the US National Health and Nutrition Examination Survey (NHANES). The training set comes from the 2017 to 2018 survey cycle (4,746 adults). Each person had routine blood work and a FibroScan exam, which measures liver stiffness in kilopascals (kPa). We set the target to 8.0 kPa or higher, which indicates significant scarring.
+            </p>
+            <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+              We calibrated the model with isotonic regression so that the predicted percentages match true observed rates.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 3: Dynamic Metrics Benchmark -->
+        <section class="mb-space-2xl">
+          <div class="mb-space-md">
+            <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">3. Results on an independent test group</h2>
+            <p class="font-body-sm text-body-sm text-secondary">Tested on 5,526 separate adults from the 2021 to 2023 NHANES survey. The model was never adjusted on this group.</p>
+          </div>
+          <div class="overflow-x-auto bg-surface-container-lowest border border-outline-variant/60 rounded-2xl overflow-hidden shadow-xs">
+            <table class="w-full text-left font-body-sm text-body-sm">
+              <thead class="bg-surface-container-low border-b border-outline-variant/60 text-secondary uppercase font-label-sm text-label-sm tracking-wider">
+                <tr>
+                  <th class="py-3 px-4">Model Pipeline</th>
+                  <th class="py-3 px-4">Feature Set</th>
+                  <th class="py-3 px-4 text-center">ROC-AUC</th>
+                  <th class="py-3 px-4 text-center">95% CI</th>
+                  <th class="py-3 px-4 text-center">Sensitivity</th>
+                  <th class="py-3 px-4 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-variant/40" id="metrics-table-body">
+                <tr>
+                  <td colspan="6" class="py-8 text-center text-secondary">
+                    Results will appear here after the model is trained.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="mb-space-2xl">
+          <div class="mb-space-md">
+            <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">4. Limitations to keep in mind</h2>
+          </div>
+          <div class="p-space-lg bg-surface-container-low rounded-2xl sm:rounded-3xl border border-outline-variant/30 grid grid-cols-1 md:grid-cols-2 gap-space-md">
+            <div class="p-space-md bg-surface-container-lowest rounded-xl sm:rounded-2xl border border-outline-variant/30">
+              <h3 class="font-headline-sm text-headline-sm text-primary mb-1">US data only</h3>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                The model was trained on US adults and may not perform the same way in other populations.
+              </p>
+            </div>
+            <div class="p-space-md bg-surface-container-lowest rounded-xl sm:rounded-2xl border border-outline-variant/30">
+              <h3 class="font-headline-sm text-headline-sm text-primary mb-1">FibroScan estimates, not biopsy</h3>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                FibroScan is a safe, painless scan, but only a tissue biopsy can prove scarring definitively.
+              </p>
+            </div>
+            <div class="p-space-md bg-surface-container-lowest rounded-xl sm:rounded-2xl border border-outline-variant/30">
+              <h3 class="font-headline-sm text-headline-sm text-primary mb-1">Acute illness can distort numbers</h3>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                Recent heavy drinking, a viral infection, or new medications can spike liver enzymes temporarily.
+              </p>
+            </div>
+            <div class="p-space-md bg-surface-container-lowest rounded-xl sm:rounded-2xl border border-outline-variant/30">
+              <h3 class="font-headline-sm text-headline-sm text-primary mb-1">Student research only</h3>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                This tool was built to learn and test machine learning concepts. It has not been reviewed by health authorities.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: CTA -->
+        <section class="py-space-xl px-space-xl bg-primary text-on-primary rounded-2xl sm:rounded-3xl flex flex-col md:flex-row items-center justify-between gap-space-lg text-center md:text-left shadow-md">
+          <div class="max-w-xl">
+            <h2 class="font-headline-lg text-headline-lg text-on-primary mb-space-xs">Ready to test your own numbers?</h2>
+            <p class="font-body-md text-body-md text-on-primary-container leading-relaxed">
+              Enter values from your last routine blood test. All calculations run in your browser.
+            </p>
+          </div>
+          <div class="shrink-0">
+            <button onclick="showSection('calculator')" class="inline-flex items-center gap-space-xs px-6 py-3 bg-surface-container-lowest text-primary hover:bg-surface-container-high transition-colors font-headline-sm text-headline-sm rounded-full cursor-pointer shadow-xs">
+              <span>Open Calculator</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ======================== LOADING MODAL (Location 2: During Calculation) ======================== -->
+  <div id="calc-loading-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/80 backdrop-blur-xs">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-space-xl shadow-2xl flex flex-col items-center gap-space-md text-center max-w-sm">
+      <div class="w-12 h-12 flex items-center justify-center my-2">
+        <div class="w-8 h-8 rounded-full border-2 border-neutral-200 border-t-neutral-900 animate-spin"></div>
+      </div>
+      <p class="font-headline-sm text-headline-sm text-primary">Calculating risk estimate...</p>
+      <p class="font-caption text-caption text-secondary">Checking measurements against model.</p>
+    </div>
+  </div>
+
+  <!-- ======================== POPUP MODAL: LAB REPORT GUIDE ======================== -->
+  <div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-none" id="lab-guide-modal">
+    <div class="bg-surface-container-lowest border border-primary w-full max-w-2xl rounded-3xl p-space-lg shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/50">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">How to read your lab report</h3>
+          <p class="font-caption text-caption text-secondary">Where to locate ALT, AST, GGT, and Platelets.</p>
+        </div>
+        <button class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-secondary hover:text-primary cursor-pointer transition-colors" onclick="closeLabModal()" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="py-space-md flex flex-col gap-space-md font-body-sm text-body-sm">
+        <p class="text-secondary leading-relaxed">
+          ALT and AST appear on a standard metabolic panel (CMP) or liver function panel. In some labs, ALT is called SGPT, and AST is called SGOT. Platelets appear on a complete blood count (CBC).
+        </p>
+        <!-- Generic Reference Guide (No Fake Patient Numbers) -->
+        <div class="bg-surface p-space-md rounded-2xl border border-outline-variant font-mono text-[12px] text-on-surface flex flex-col gap-2">
+          <div class="border-b border-outline-variant pb-1 flex justify-between font-bold text-secondary">
+            <span>TEST NAME</span>
+            <span>STANDARD RANGE</span>
+            <span>UNITS</span>
+          </div>
+          <div class="flex justify-between items-center bg-surface-container-lowest p-2 rounded-xl border border-outline-variant">
+            <span>ALT (SGPT)</span>
+            <span class="text-secondary">7 to 56</span>
+            <span class="text-secondary">U/L</span>
+          </div>
+          <div class="flex justify-between items-center bg-surface-container-lowest p-2 rounded-xl border border-outline-variant">
+            <span>AST (SGOT)</span>
+            <span class="text-secondary">10 to 40</span>
+            <span class="text-secondary">U/L</span>
+          </div>
+          <div class="flex justify-between items-center bg-surface-container-lowest p-2 rounded-xl border border-outline-variant">
+            <span>GGT</span>
+            <span class="text-secondary">9 to 48</span>
+            <span class="text-secondary">U/L</span>
+          </div>
+          <div class="flex justify-between items-center bg-surface-container-lowest p-2 rounded-xl border border-outline-variant">
+            <span>Platelet Count (CBC)</span>
+            <span class="text-secondary">150 to 400</span>
+            <span class="text-secondary">x1000/µL</span>
+          </div>
+        </div>
+      </div>
+      <div class="pt-space-xs border-t border-outline-variant/50 flex justify-end">
+        <button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-xl font-semibold hover:bg-neutral-800 transition-colors cursor-pointer shadow-xs" onclick="closeLabModal()" type="button">
+          Close guide
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Centralized strings and application script -->
+  <script src="strings.js"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

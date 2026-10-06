@@ -1,0 +1,13 @@
+pandas>=3.0
+numpy>=2.0
+scikit-learn>=1.9
+matplotlib>=3.11
+seaborn>=0.13
+xgboost>=3.0
+shap>=0.52
+fastapi>=0.140
+uvicorn>=0.54
+pydantic>=2.0
+python-multipart>=0.0.18
+joblib>=1.6
+scipy>=1.18

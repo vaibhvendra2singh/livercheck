@@ -1,0 +1,25 @@
+# Data files (raw NHANES datasets)
+train.csv
+test.csv
+*.xpt
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# System and editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary logs
+*.log
+scratch/

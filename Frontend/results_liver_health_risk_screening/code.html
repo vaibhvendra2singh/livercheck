@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-variant": "#e2e2e2", "secondary-fixed": "#e4e2e2", "surface": "#f9f9f9", "surface-container-high": "#e8e8e8", "on-primary-container": "#858383", "outline": "#747878", "primary-fixed-dim": "#c9c6c5", "error": "#ba1a1a", "surface-tint": "#5f5e5e", "on-background": "#1a1c1c", "on-primary-fixed": "#1c1b1b", "on-secondary-fixed-variant": "#464747", "primary-container": "#1c1b1b", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff", "surface-dim": "#dadada", "on-primary-fixed-variant": "#474646", "on-tertiary-container": "#868381", "inverse-primary": "#c9c6c5", "surface-container-highest": "#e2e2e2", "tertiary-container": "#1d1b1a", "on-tertiary-fixed": "#1d1b1a", "on-error-container": "#93000a", "tertiary-fixed-dim": "#cac6c3", "on-tertiary": "#ffffff", "on-surface": "#1a1c1c", "on-surface-variant": "#444748", "secondary-container": "#e1dfdf", "primary": "#000000", "background": "#f9f9f9", "tertiary": "#000000", "surface-container": "#eeeeee", "primary-fixed": "#e5e2e1", "surface-bright": "#f9f9f9", "outline-variant": "#c4c7c7", "inverse-surface": "#2f3131", "surface-container-low": "#f4f3f3", "on-secondary-fixed": "#1b1c1c", "on-secondary": "#ffffff", "inverse-on-surface": "#f1f1f1", "on-secondary-container": "#626262", "error-container": "#ffdad6", "on-error": "#ffffff", "secondary-fixed-dim": "#c7c6c6", "secondary": "#5e5e5e", "on-tertiary-fixed-variant": "#484645", "tertiary-fixed": "#e6e1df" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin-mobile": "1rem", "space-lg": "1.5rem", "gutter-mobile": "1rem", "space-xl": "2.5rem", "gutter": "1.5rem", "space-sm": "0.5rem", "space-2xl": "4rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "2rem" }, "fontFamily": { "body-lg": ["Inter"], "data-metric": ["Inter"], "headline-md": ["Inter"], "headline-xl": ["Inter"], "headline-xl-mobile": ["Inter"], "headline-lg": ["Inter"], "label-md": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "label-sm": ["Inter"], "caption": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"] }, "fontSize": { "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "data-metric": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-xl-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-outline-variant/60"><div class="h-16 max-w-6xl mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="LiverCheck Monochromatic Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U4RFvMOutcz9ckL-LKecX8XhnWhE_w_iqzxaLu2bPoI08T26id-HzI-7UuEqC7FNV4dnjdkWv36jsDDfpJDJN0PxETBC4YBh615-IyFeaLKckMmKzEDiyIvrLIgjBAOLzps3p2mm6IddxFuuSQSGe6bYgOZ-ez5nOm3WGVeX0TpyD7QrUHo_ps_IzEx42-uf3oQ-06FD-mt89r8lFG5floOBadmx48cgvMcX_Uetc6HjB7y37cUHuEUb8"/><span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">LiverCheck</span></div><nav class="hidden md:flex items-center gap-space-lg h-16 pt-0.5" data-active-classes="text-primary font-semibold border-b-2 border-primary"><a class="text-secondary hover:text-primary transition-colors flex items-center h-full px-space-xs font-label-md text-label-md" data-path="calculator" href="#">Calculator</a><a aria-current="page" class="transition-colors flex items-center h-full px-space-xs text-primary font-semibold border-b-2 border-primary" data-path="results" href="#">Results</a><a class="text-secondary hover:text-primary transition-colors flex items-center h-full px-space-xs font-label-md text-label-md" data-path="how-it-works" href="#">How it works</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-low border border-outline-variant rounded-lg text-secondary"><span class="material-symbols-outlined text-[16px] text-on-surface">info</span><span class="font-caption text-caption tracking-tight text-on-surface">Clinical Screening Aid • Not a Diagnosis</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface-container-lowest flex-1"><div class="max-w-6xl mx-auto px-margin py-space-xl"><div class="flex flex-col w-full">
+<div class="max-w-4xl mx-auto w-full flex flex-col gap-space-lg">
+<!-- Top Meta Action Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Assessment Identifier</span>
+<span class="font-mono font-caption text-caption bg-surface-container px-space-xs py-0.5 rounded text-on-surface">LC-2024-8849-B</span>
+</div>
+<div class="flex items-center gap-space-md text-secondary font-caption text-caption">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+          Clinical Validation Passed
+        </span>
+<span class="text-outline-variant">/</span>
+<span id="timestamp-slot">Calculated today</span>
+</div>
+</div>
+<!-- 1. TOP SUMMARY CARD -->
+<div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary">Screening Result • Assessment Completed</span>
+</div>
+<span class="font-caption text-caption text-secondary">Model: Dual-Parametric Ensembled Fibrosis v2.4</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-xl items-center py-space-sm">
+<!-- Minimalist Line Arc Visualizer -->
+<div class="md:col-span-5 flex flex-col items-center justify-center relative">
+<div class="relative w-56 h-36 flex items-end justify-center overflow-hidden">
+<svg class="w-56 h-56 -rotate-90 transform origin-center" viewbox="0 0 160 160">
+<defs>
+<pattern height="4" id="hatch-risk" patterntransform="rotate(45 0 0)" patternunits="userSpaceOnUse" width="4">
+<line stroke="#000000" stroke-width="1.2" x1="0" x2="0" y1="0" y2="4"></line>
+</pattern>
+</defs>
+<!-- Track semicircle -->
+<circle cx="80" cy="80" fill="none" r="64" stroke="#e2e2e2" stroke-dasharray="201 201" stroke-dashoffset="0" stroke-linecap="butt" stroke-width="12"></circle>
+<!-- Solid Risk Fill: 22% of half-circle (201 * 0.22 = 44.22) -->
+<circle class="transition-all duration-1000 ease-out" cx="80" cy="80" fill="none" id="gauge-fill-arc" r="64" stroke="#000000" stroke-dasharray="44.2 201" stroke-dashoffset="0" stroke-linecap="butt" stroke-width="12"></circle>
+<!-- Subtle tick markers -->
+<line stroke="#747878" stroke-width="1" x1="16" x2="24" y1="80" y2="80"></line>
+<line stroke="#747878" stroke-width="1" x1="80" x2="80" y1="16" y2="24"></line>
+<line stroke="#747878" stroke-width="1" x1="144" x2="136" y1="80" y2="80"></line>
+</svg>
+<div class="absolute bottom-1 flex flex-col items-center">
+<span class="font-data-metric text-data-metric text-primary tracking-tighter leading-none" id="metric-counter">22%</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mt-1">Probability</span>
+</div>
+</div>
+<div class="w-full flex justify-between px-6 pt-1 text-secondary font-caption text-caption">
+<span>0%</span>
+<span>50%</span>
+<span>100%</span>
+</div>
+</div>
+<!-- Metric Interpretation -->
+<div class="md:col-span-7 flex flex-col justify-center gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 bg-primary text-on-primary font-label-md text-label-md rounded">
+<span class="w-2 h-2 rounded-full bg-surface-container-lowest inline-block"></span>
+              Moderate Risk
+            </span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider bg-surface-container-low px-space-sm py-1 rounded">Stage F2–F4 Indication</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Significant Liver Scarring Likelihood</h1>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+            Your results suggest a moderate likelihood of liver scarring that warrants a routine follow-up with your primary physician.
+          </p>
+<div class="pt-space-xs flex items-center gap-space-md text-secondary font-caption text-caption">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+              Clinical Guideline AASLD &amp; EASL
+            </span>
+<span>•</span>
+<span>Low urgency / Routine outpatient recommendation</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm text-secondary font-caption text-caption">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">description</span>
+<span>Report generated for clinical review • Calculated on <span class="font-semibold text-primary" id="report-date-string"></span></span>
+</div>
+<div class="flex items-center gap-space-sm font-mono text-secondary">
+<span>NTR: 8849</span>
+<span>•</span>
+<span>REV: 02</span>
+</div>
+</div>
+</div>
+<!-- 2. CARD: HOW THIS COMPARES -->
+<div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Comparative Analytics</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">How This Compares</h2>
+<p class="font-body-sm text-body-sm text-secondary">Standard reference baseline mapped alongside multi-factor algorithmic adjustments.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<!-- Block 1: LiverCheck Enhanced -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between gap-space-md relative overflow-hidden">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-primary">LiverCheck Enhanced Model</span>
+<span class="px-space-xs py-0.5 bg-primary text-on-primary font-label-sm text-label-sm rounded">Ensemble</span>
+</div>
+<p class="font-caption text-caption text-secondary">
+              Multi-parameter ensemble incorporating waist circumference, platelets, and transaminases.
+            </p>
+</div>
+<div class="flex items-baseline gap-space-xs pt-space-xs">
+<span class="font-data-metric text-data-metric text-primary tracking-tight">22%</span>
+<span class="font-label-md text-label-md text-secondary">calculated risk</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[22%]"></div>
+</div>
+</div>
+<!-- Block 2: Standard FIB-4 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-primary">Standard FIB-4 Score</span>
+<span class="px-space-xs py-0.5 bg-surface-variant text-on-surface font-label-sm text-label-sm rounded">Clinical Gold Std</span>
+</div>
+<p class="font-caption text-caption text-secondary">
+              Traditional diagnostic equation derived from Age, AST, ALT, and Platelet levels.
+            </p>
+</div>
+<div class="flex items-baseline gap-space-xs pt-space-xs">
+<span class="font-data-metric text-data-metric text-primary tracking-tight">1.42</span>
+<span class="font-label-md text-label-md text-secondary">(Indeterminate / Low-Intermediate)</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[43%]"></div>
+</div>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">help_outline</span>
+<p class="font-body-sm text-body-sm text-secondary leading-normal">
+<strong class="text-on-surface font-semibold">Diagnostic Context:</strong> FIB-4 is the standard formula physicians use worldwide. LiverCheck refines this by integrating metabolic body metrics (BMI &amp; waist-to-height) to reduce false negatives in early fibrosis.
+        </p>
+</div>
+</div>
+<!-- 3. CARD: WHAT INFLUENCED YOUR RESULT -->
+<div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Factor Breakdown</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">What Influenced Your Result</h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Relative contribution of your lab and body measurements to this assessment:</p>
+</div>
+<span class="font-caption text-caption text-secondary">Top 5 Primary Variables</span>
+</div>
+<div class="flex flex-col gap-space-lg">
+<!-- Factor 1: Waist Circumference -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-primary">1. Waist circumference</span>
+<span class="font-mono font-caption text-caption text-secondary">(98 cm)</span>
+</div>
+<span class="inline-flex self-start sm:self-auto items-center px-space-xs py-0.5 bg-primary text-on-primary font-label-sm text-label-sm rounded uppercase tracking-wider">
+              Increases risk
+            </span>
+</div>
+<!-- Bar container -->
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[75%] transition-all duration-700"></div>
+</div>
+<p class="font-caption text-caption text-secondary">Central adiposity is a primary driver of hepatic steatosis.</p>
+</div>
+<!-- Factor 2: Platelet Count -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-primary">2. Platelet count</span>
+<span class="font-mono font-caption text-caption text-secondary">(185 x1000/μL)</span>
+</div>
+<span class="inline-flex self-start sm:self-auto items-center px-space-xs py-0.5 bg-primary text-on-primary font-label-sm text-label-sm rounded uppercase tracking-wider">
+              Increases risk
+            </span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[60%] transition-all duration-700"></div>
+</div>
+<p class="font-caption text-caption text-secondary">Borderline low platelets can be an early indicator of liver stiffness.</p>
+</div>
+<!-- Factor 3: ALT -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-primary">3. ALT (Alanine Aminotransferase)</span>
+<span class="font-mono font-caption text-caption text-secondary">(48 U/L)</span>
+</div>
+<span class="inline-flex self-start sm:self-auto items-center px-space-xs py-0.5 bg-primary text-on-primary font-label-sm text-label-sm rounded uppercase tracking-wider">
+              Increases risk
+            </span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[50%] transition-all duration-700"></div>
+</div>
+<p class="font-caption text-caption text-secondary">Mildly elevated transaminase indicates ongoing hepatocyte stress.</p>
+</div>
+<!-- Factor 4: Age -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-primary">4. Age</span>
+<span class="font-mono font-caption text-caption text-secondary">(52 years)</span>
+</div>
+<span class="inline-flex self-start sm:self-auto items-center px-space-xs py-0.5 bg-surface-variant text-on-surface font-label-sm text-label-sm rounded uppercase tracking-wider">
+              Neutral / Moderate
+            </span>
+</div>
+<!-- Hatched monochrome bar -->
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="h-full w-[35%] bg-secondary transition-all duration-700 opacity-80"></div>
+</div>
+<p class="font-caption text-caption text-secondary">Fibrosis prevalence rises gradually after age 50.</p>
+</div>
+<!-- Factor 5: Fasting Glucose -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-primary">5. Fasting Glucose</span>
+<span class="font-mono font-caption text-caption text-secondary">(94 mg/dL)</span>
+</div>
+<span class="inline-flex self-start sm:self-auto items-center px-space-xs py-0.5 bg-surface-container text-on-surface font-label-sm text-label-sm rounded uppercase tracking-wider">
+              Lowers risk
+            </span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed-dim h-full w-[20%] transition-all duration-700"></div>
+</div>
+<p class="font-caption text-caption text-secondary">Normoglycemic fasting blood sugar reduces metabolic compounding risk.</p>
+</div>
+</div>
+</div>
+<!-- 4. CARD: WHAT YOU CAN DO NEXT -->
+<div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Clinical Guidance</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">What You Can Do Next</h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Structured preventive actions tailored to moderate risk stratification:</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Action 1 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex gap-space-md items-start">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
+<!-- Doctor & Clipboard Minimal SVG -->
+<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+<rect height="4" rx="1" ry="1" width="8" x="8" y="2"></rect>
+<path d="M12 11h4"></path>
+<path d="M12 16h4"></path>
+<path d="M8 11h.01"></path>
+<path d="M8 16h.01"></path>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-label-md text-label-md font-semibold text-primary">Discuss results with your doctor</h3>
+<p class="font-body-sm text-body-sm text-secondary">
+              Bring this printed summary to your general practitioner or gastroenterologist for an ultrasound or FibroScan.
+            </p>
+</div>
+</div>
+<!-- Action 2 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex gap-space-md items-start">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
+<!-- Nutrition / Diet Scale Minimal SVG -->
+<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M12 3v18"></path>
+<path d="M6 8l6-5 6 5"></path>
+<path d="M4 14l3-6 3 6a3 3 0 0 1-6 0z"></path>
+<path d="M14 14l3-6 3 6a3 3 0 0 1-6 0z"></path>
+<path d="M8 21h8"></path>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-label-md text-label-md font-semibold text-primary">Maintain a liver-healthy dietary pattern</h3>
+<p class="font-body-sm text-body-sm text-secondary">
+              Emphasize Mediterranean-style eating, whole grains, and lean proteins while lowering saturated fats.
+            </p>
+</div>
+</div>
+<!-- Action 3 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex gap-space-md items-start">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
+<!-- Prohibition / Drink Minimal SVG -->
+<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M4.93 4.93l14.14 14.14"></path>
+<circle cx="12" cy="12" r="9"></circle>
+<path d="M8 8v1a4 4 0 0 0 8 0V8"></path>
+<path d="M12 13v4"></path>
+<path d="M9 17h6"></path>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-label-md text-label-md font-semibold text-primary">Limit alcohol &amp; sweetened beverages</h3>
+<p class="font-body-sm text-body-sm text-secondary">
+              Reduce ethanol and high-fructose corn syrup intake to minimize metabolic and oxidative liver cell stress.
+            </p>
+</div>
+</div>
+<!-- Action 4 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex gap-space-md items-start">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
+<!-- Motion / Activity Minimal SVG -->
+<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M13 4v6"></path>
+<path d="M13 14v6"></path>
+<path d="M7 8l4 4-4 4"></path>
+<path d="M17 8l-4 4 4 4"></path>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-label-md text-label-md font-semibold text-primary">Target 150 minutes of weekly activity</h3>
+<p class="font-body-sm text-body-sm text-secondary">
+              Aerobic exercise and resistance training mobilize intrahepatic fat and enhance overall insulin sensitivity.
+            </p>
+</div>
+</div>
+</div>
+<!-- Caution Alert Box -->
+<div class="p-space-md bg-surface-container rounded-lg flex items-start gap-space-md">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-semibold text-primary">When to seek care sooner</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+            Consult a doctor promptly if you notice persistent yellowing of skin/eyes (jaundice), swelling in legs or abdomen, unexplained cognitive fog, or unusually dark urine.
+          </p>
+</div>
+</div>
+</div>
+<!-- 5. ACTION BUTTONS & DISCLAIMER -->
+<div class="flex flex-col gap-space-lg pt-space-xs">
+<!-- Button Cluster -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm justify-between">
+<button class="w-full sm:w-auto px-space-lg py-3 bg-primary text-on-primary hover:bg-neutral-800 transition-colors font-label-md text-label-md rounded flex items-center justify-center gap-space-xs" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span>
+          Print / Save PDF Report
+        </button>
+<div class="flex w-full sm:w-auto items-center gap-space-sm">
+<button class="flex-1 sm:flex-none px-space-md py-3 bg-surface-container-high text-primary hover:bg-surface-variant transition-colors font-label-md text-label-md rounded flex items-center justify-center gap-space-xs" onclick="handleEditAnswers()">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+            Edit my answers
+          </button>
+<button class="flex-1 sm:flex-none px-space-md py-3 bg-surface-container-low text-secondary hover:text-primary hover:bg-surface-container transition-colors font-label-md text-label-md rounded flex items-center justify-center gap-space-xs" onclick="handleResetCalculation()">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+            Start new calculation
+          </button>
+</div>
+</div>
+<!-- Educational Disclaimer Box -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-start gap-space-md">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">policy</span>
+<div class="flex flex-col gap-1 text-secondary font-body-sm text-body-sm">
+<strong class="text-on-surface font-semibold">Educational Use Only</strong>
+<p class="leading-relaxed">
+            Disclaimer: This tool is for education and screening support only. It does not diagnose any condition. Medical decisions must always be made in consultation with a licensed healthcare professional.
+          </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initResultsPage() {
+    // Dynamic date populator for clinical reporting
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+    const dateEl = document.getElementById('report-date-string');
+    const timeEl = document.getElementById('timestamp-slot');
+    if (dateEl) dateEl.textContent = formattedDate;
+    if (timeEl) timeEl.textContent = 'Calculated on ' + formattedDate;
+
+    // Window navigation handlers
+    window.handleEditAnswers = function() {
+      const calcTab = document.querySelector('a[data-path="calculator"]');
+      if (calcTab) {
+        calcTab.click();
+      } else {
+        window.history.back();
+      }
+    };
+
+    window.handleResetCalculation = function() {
+      sessionStorage.clear();
+      const calcTab = document.querySelector('a[data-path="calculator"]');
+      if (calcTab) {
+        calcTab.click();
+      } else {
+        window.location.reload();
+      }
+    };
+  })();
+</script></div></main><footer class="w-full bg-surface-container-lowest border-t border-outline-variant/60 py-space-xl"><div class="max-w-6xl mx-auto px-margin flex flex-col gap-space-md text-secondary"><div class="flex flex-col md:flex-row md:items-start justify-between gap-space-md pb-space-md border-b border-outline-variant/40"><div class="max-w-2xl flex flex-col gap-space-xs"><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">This tool is for education and screening support only. It does not diagnose any condition. Please consult a qualified healthcare provider for clinical advice.</p><p class="font-caption text-caption text-secondary">Zero data retention • All calculations happen client-side</p></div><div class="shrink-0"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">LiverCheck Engine v2.4</span></div></div><div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-xs font-caption text-caption"><p class="text-secondary">© LiverCheck Research Group. All rights reserved.</p><div class="flex items-center gap-space-md text-secondary"><a class="hover:text-primary transition-colors" href="#">Methodology &amp; Evidence</a><a class="hover:text-primary transition-colors" href="#">Institutional Privacy</a><a class="hover:text-primary transition-colors" href="#">Terms of Clinical Reference</a></div></div></div></footer></body></html>
